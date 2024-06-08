@@ -1,7 +1,7 @@
 function findWords() {
     var randomString = document.getElementById('randomString').value.toUpperCase();
     var resultsContainer = document.getElementById('results');
-    resultsContainer.innerHTML = ''; // Clear previous results
+    resultsContainer.innerHTML = '';
 
     if (randomString.length <= 1 || !randomString.match(/^[A-Z]+$/)) {
         resultsContainer.innerHTML = '<p style="color: red;">Error: The string must have a size greater than 1 and contain only capital letters.</p>';
@@ -32,24 +32,45 @@ function displayResults(words) {
         resultsContainer.innerHTML = '<p>No words found.</p>';
     } else {
         var table = document.createElement('table');
-        table.classList.add('flex-table');
-
-        // Create table header
-        var headerRow = table.insertRow();
-        var wordHeader = headerRow.insertCell();
-        var meaningHeader = headerRow.insertCell();
-        wordHeader.textContent = 'Word';
-        meaningHeader.textContent = 'Meaning';
-
-        // Create table rows for each word
-        words.forEach(function(wordObj) {
+        words.forEach(function(word) {
             var row = table.insertRow();
-            var wordCell = row.insertCell();
-            var meaningCell = row.insertCell();
-            wordCell.textContent = wordObj.word;
-            meaningCell.textContent = wordObj.meaning;
+            var cell = row.insertCell();
+            var button = document.createElement('button');
+            button.textContent = word;
+            button.onclick = function() {
+                fetchMeaning(word);
+            };
+            cell.appendChild(button);
         });
-
         resultsContainer.appendChild(table);
     }
+}
+
+function fetchMeaning(word) {
+    fetch('/get_meaning', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ word: word }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        showPopup(data.word, data.meaning);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+function showPopup(word, meaning) {
+    var popup = document.getElementById('popup');
+    document.getElementById('popup-word').textContent = word;
+    document.getElementById('popup-meaning').textContent = meaning;
+    popup.style.display = "block";
+}
+
+function closePopup() {
+    var popup = document.getElementById('popup');
+    popup.style.display = "none";
 }

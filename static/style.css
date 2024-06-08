@@ -12,7 +12,7 @@ body {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center; /* Center the content horizontally */
+  text-align: center;
 }
 
 h1 {
@@ -50,31 +50,75 @@ button:hover {
   text-align: left;
 }
 
-#results p {
-  margin: 0;
-  padding: 10px;
-  background-color: #f0f0f0;
-  border-radius: 4px;
-}
-
-.flex-table {
+.table-container {
   display: flex;
-  flex-direction: column;
-  border-collapse: collapse;
-  width: 100%; /* Set the width to 100% */
-  max-width: 500px; /* Limit the maximum width to 500px */
-  height: 200px; /* Set the height to 200px */
-  overflow-y: auto; /* Add vertical scroll if content exceeds height */
-  margin: 20px auto; /* Center the table horizontally */
+  justify-content: center; /* Center the table horizontally */
+  align-items: center; /* Center the table vertically */
+  max-height: 200px;
+  overflow-y: auto; /* Added to enable vertical scrolling */
 }
 
-.flex-table th,
-.flex-table td {
-  padding: 8px;
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container table th,
+.table-container table td {
   border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.table-container table th {
+  background-color: #f2f2f2;
   text-align: left;
 }
 
-.flex-table th {
-  background-color: #f2f2f2;
+.table-container table td button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.table-container table td button:hover {
+  background-color: #0056b3;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.popup-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 400px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }

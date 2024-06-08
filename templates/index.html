@@ -13,7 +13,19 @@
         <label for="randomString">Enter a random string of characters:</label>
         <input type="text" id="randomString" placeholder="Only capital letters allowed">
         <button onclick="findWords()">Find Words</button>
-        <div id="results"></div>
+        <br>
+        <div class="table-container">
+            <table id="results">
+                <!-- Table content will be dynamically generated -->
+            </table>
+        </div>
+    </div>
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <p id="popup-word"></p>
+            <p id="popup-meaning"></p>
+        </div>
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
